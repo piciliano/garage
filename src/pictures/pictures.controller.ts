@@ -19,7 +19,6 @@ import { FileInterceptor } from '@nestjs/platform-express';
 export class PicturesController {
   constructor(private readonly picturesService: PicturesService) {}
 
-  @UseGuards(AuthTokenGuard)
   @UseInterceptors(FileInterceptor('file'))
   @Post()
   async uploadPicture(
@@ -35,7 +34,7 @@ export class PicturesController {
     @TokenPayloadParam()
     tokenPayload: TokenPayloadDto,
   ) {
-    return this.picturesService.create(file, tokenPayload);
+    return this.picturesService.create(file);
   }
 
   @Get()
